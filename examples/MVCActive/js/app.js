@@ -7,7 +7,7 @@
 	 * The App is basically just a factory that creates the pieces
 	 * and hooks them together.
 	 */
-	scope.MVCPassiveApp = function(){
+	scope.MVCActiveApp = function(){
 	//Private 
 		var mainModel;
 		var mainView;
@@ -29,8 +29,10 @@
 			mainView.setClickCommand(mainModel.CUBES[cubeI], toggleR);
 		}
 
-		renderCommand = new Controller.RenderViewOnce(cubeRotaters, mainView);
-		//renderCommand = new Controller.RenderViewLoop(cubeRotaters, mainView);
+		//Technically, these are no longer 'render' loops... they just update the model
+		//We let the views determine if they need to render or not.
+		renderCommand = new Controller.RenderViewOnce(cubeRotaters);
+		//renderCommand = new Controller.RenderViewLoop(cubeRotaters);
 
 	//Public
 		return {
@@ -43,7 +45,7 @@
 
 	};
 
-})(MVCPassive);
+})(MVCActive);
 
 
 
@@ -54,7 +56,7 @@
 	var Model 		= scope.Model;
 	var View 		= scope.View;
 
-	scope.app = new scope.MVCPassiveApp();
+	scope.app = new scope.MVCActiveApp();
 	scope.app.initialize();
 
-})(MVCPassive);
+})(MVCActive);

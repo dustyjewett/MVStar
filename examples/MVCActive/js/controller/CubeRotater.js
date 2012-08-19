@@ -10,9 +10,12 @@
 		return {
 			enabled:true,
 			execute:function(){
-				if(this.enabled)
-					model.rotation[axis] += 0.01;
+				if(this.enabled){
+					var r = model.getRotation();
+					r[axis] += 0.01;
+					model.setRotation(r);
+				}
 			}
 		};
 	};
-})(MVCPassive);
+})(MVCActive);

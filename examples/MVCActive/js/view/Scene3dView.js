@@ -54,9 +54,7 @@
 				this.createCubes();
 				this.createLight();
 
-				this.updateCamera();
-				this.updateCubes();
-				this.updateLight();
+				this.update();
 			},
 			/**
 			 * Add a command to be executed when click happens.
@@ -67,7 +65,11 @@
 			createCubes:function(){
 				var numOfCubes = model.CUBES.length;
 				while(numOfCubes--){
-					var boundCube = new View.Component.BoundCube(model.CUBES[numOfCubes]);
+					var cubeModel = model.CUBES[numOfCubes];
+					var boundCube = new View.Component.BoundCube(cubeModel);
+					//This is the 'active' part!
+					//Whenever a model changes, we render!
+					cubeModel.on('update', this.render);
 					cubes.push(boundCube);
 					meshes.push(boundCube.mesh);
 					scene.add(boundCube.mesh);
@@ -82,7 +84,6 @@
 			update:function(){
 				this.updateCamera();
 				this.updateLight();
-				this.updateCubes();
 			},
 			updateCamera:function(){
 				// set the camera position
@@ -102,12 +103,6 @@
 				pointLight.position.y = model.LIGHT.y;
 				pointLight.position.z = model.LIGHT.z;
 			},
-			updateCubes:function(){
-				var cubeI = cubes.length;
-				while(cubeI--){
-					cubes[cubeI].update();
-				}
-			},
 			render:function(){
 				// draw!
 				renderer.render(scene, camera);
@@ -116,6 +111,6 @@
 
 	};
 
-})(MVCPassive);
+})(MVCActive);
 
 
