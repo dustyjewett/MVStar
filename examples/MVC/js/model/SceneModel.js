@@ -37,7 +37,7 @@
 						y:0,
 						z:0
 					},
-					0xAAAAAA
+					0xEEEEEE
 				),
 				new Model.CubeModel(
 					{//position
@@ -45,7 +45,7 @@
 						y:0,
 						z:0
 					},
-					0x999900
+					0xEEEE00
 				),
 				new Model.CubeModel(
 					{//position
@@ -53,7 +53,7 @@
 						y:0,
 						z:0
 					},
-					0x990099
+					0xEE00EE
 				),
 				new Model.CubeModel(
 					{//position
@@ -61,7 +61,7 @@
 						y:100,
 						z:0
 					},
-					0x009900
+					0x00EE00
 				),
 				new Model.CubeModel(
 					{//position
@@ -69,7 +69,7 @@
 						y:-100,
 						z:0
 					},
-					0x009999
+					0x00EEEE
 				),
 				new Model.CubeModel(
 					{//position
@@ -77,7 +77,7 @@
 						y:0,
 						z:100
 					},
-					0x000099
+					0x0000EE
 				),
 				new Model.CubeModel(
 					{//position
@@ -85,7 +85,7 @@
 						y:0,
 						z:-100
 					},
-					0x990000
+					0xEE0000
 				),
 
 

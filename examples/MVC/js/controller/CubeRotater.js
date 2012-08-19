@@ -1,15 +1,16 @@
+/**
+ * CubeRotater is a command that increments the model's rotation along a given axis
+ */
 (function(scope){
 	var Controller 	= scope.Controller;
 
-	Controller.CubeRotater = function(cubeModel){
-		var theCube = cubeModel;
-
+	Controller.CubeRotater = function(model, axis){
 		//Public
 		return {
 			enabled:true,
 			execute:function(){
 				if(this.enabled)
-					theCube.rotation.y += 0.01;
+					model.rotation[axis] += 0.01;
 			}
 
 		};

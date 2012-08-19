@@ -8,44 +8,31 @@
 		var mainModel;
 		var mainView;
 		var cubeRotaters = [];
-		var render;
+		var renderCommand;
 
-
+		//Instantiate our Model(s)
 		mainModel = new Model.SceneModel();
 
+		//Instantiate our View
+		mainView = new View.Scene3dView(mainModel);
 
-		mainView = new View.AwesomeView(mainModel);
-
+		//We loop through our items and add controllers for each
 		var cubeI = mainModel.CUBES.length;
 		while(cubeI--){
-			var cubeR = new Controller.CubeRotater(mainModel.CUBES[cubeI]);
+			var cubeR = new Controller.CubeRotater(mainModel.CUBES[cubeI], "x");
 			cubeRotaters.push(cubeR);
 			var toggleR = new Controller.CommandToggler(cubeR);
 			mainView.setClickCommand(mainModel.CUBES[cubeI], toggleR);
 		}
 
-
-		render = function(){
-			//First, we request another frame
-			window.requestAnimationFrame(render);
-			//We run any controllers that need to run every frame
-			var rotaterI = cubeRotaters.length;
-			while(rotaterI--){
-				cubeRotaters[rotaterI].execute();
-			}
-			//Then we draw the main view
-			mainView.updateCubes();
-			mainView.render();
-		}
+		renderCommand = new Controller.RenderViewOnce(cubeRotaters, mainView);
+		//renderCommand = new Controller.RenderViewLoop(cubeRotaters, mainView);
 
 		//Public
 		return {
 			initialize:function(){
 				mainView.initialize();
-				//Because the view is passive, it only does things when told
-				//So we need to process all outside inputs, including animation
-				//frames ouside of the view
-				render();
+				renderCommand.execute();
 				
 			}
 		};
