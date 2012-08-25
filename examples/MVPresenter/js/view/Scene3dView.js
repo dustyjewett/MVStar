@@ -41,7 +41,7 @@
 				var intersects = ray.intersectObjects( meshes );
 
 				if ( intersects.length > 0  && itemToCommandMap[intersects[0].object.id]) {
-					itemToCommandMap[intersects[0].object.id].execute(event);
+					itemToCommandMap[intersects[0].object.id].call(undefined, event);
 				}
 			});
 
@@ -58,6 +58,7 @@
 			},
 			/**
 			 * Add a command to be executed when click happens.
+			 * This Function now takes a Function... which is called when clicked
 			 */
 			setClickCommand:function(model, command){
 				itemToCommandMap[model.id] = command;

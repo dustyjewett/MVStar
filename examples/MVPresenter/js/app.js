@@ -26,7 +26,7 @@
 			var cubeR = new Controller.CubeRotater(mainModel.CUBES[cubeI], "x");
 			cubeRotaters.push(cubeR);
 			var toggleR = new Controller.CommandToggler(cubeR);
-			mainView.setClickCommand(mainModel.CUBES[cubeI], toggleR);
+			mainView.setClickCommand(mainModel.CUBES[cubeI], toggleR.execute);
 		}
 
 		//Technically, these are no longer 'render' loops... they just update the model
