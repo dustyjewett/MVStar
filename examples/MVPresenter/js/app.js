@@ -11,34 +11,22 @@
 	//Private 
 		var mainModel;
 		var mainView;
-		var cubeRotaters = [];
 		var renderCommand;
 
 		//Instantiate our Model(s)
 		mainModel = new Model.SceneModel();
 
 		//Instantiate our View
-		mainView = new View.Scene3dView(mainModel);
+		mainView = new View.Scene3dView();
 
-		//We loop through our items and add controllers for each
-		var cubeI = mainModel.CUBES.length;
-		while(cubeI--){
-			var cubeR = new Controller.CubeRotater(mainModel.CUBES[cubeI], "x");
-			cubeRotaters.push(cubeR);
-			var toggleR = new Controller.CommandToggler(cubeR);
-			mainView.setClickCommand(mainModel.CUBES[cubeI], toggleR.execute);
-		}
+		//Instantiate our Presenter
+		mainPresenter = new Controller.Scene3dPresenter(mainModel, mainView);
 
-		//Technically, these are no longer 'render' loops... they just update the model
-		//We let the views determine if they need to render or not.
-		//renderCommand = new Controller.RenderViewOnce(cubeRotaters);
-		renderCommand = new Controller.RenderViewLoop(cubeRotaters);
 
 	//Public
 		return {
 			initialize:function(){
-				mainView.initialize();
-				renderCommand.execute();
+				mainPresenter.start();
 				
 			}
 		};

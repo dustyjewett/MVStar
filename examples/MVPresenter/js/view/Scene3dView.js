@@ -3,114 +3,106 @@
 	var Model 		= scope.Models;
 	var View 		= scope.View;
 
-	View.Scene3dView = function(theModel){
+	//Our view is now a Passive View.
+	View.Scene3dView = function(){
 	//Private 
-		var model = theModel;
 
 		var itemToCommandMap = {};
 		var cubes = [];
 		var meshes = [];
 		var pointLight;
+		var renderer;
+		var scene;
+		var camera;
+		var projector;
 
 		// get the DOM element to attach to
 		// - assume we've got jQuery to hand
 		var $container = $('#container');
 
-		// create a WebGL renderer, camera
-		// and a scene
-		var renderer = new THREE.WebGLRenderer();
+
+		this.initialize = function(WIDTH, HEIGHT, VIEW_ANGLE, ASPECT, NEAR, FAR){
+			// create a WebGL renderer, camera
+			// and a scene
+			renderer = new THREE.WebGLRenderer();
 			// start the renderer
-			renderer.setSize(model.WIDTH, model.HEIGHT);
-		var scene = new THREE.Scene();
-		var camera = new THREE.PerspectiveCamera(  model.VIEW_ANGLE,
-		                                model.ASPECT,
-		                                model.NEAR,
-		                                model.FAR  );
+			renderer.setSize(WIDTH, HEIGHT);
+			scene = new THREE.Scene();
+			camera = new THREE.PerspectiveCamera( 
+											VIEW_ANGLE,
+			                                ASPECT,
+			                                NEAR,
+			                                FAR
+			);
 			scene.add(camera);
-		var projector = new THREE.Projector();
+			projector = new THREE.Projector();
 
-		// attach the render-supplied DOM element
-		$container.append(renderer.domElement);
+			// create a point light
+			pointLight = new THREE.PointLight( 0xFFFFFF );
+			// add to the scene
+			scene.add(pointLight);
 
-		//This is an unfortunately complicated way of finding out if a mesh was clicked on
-		$container.on('mousedown', function( event ) {
-				event.preventDefault();
-				var vector = new THREE.Vector3( ( event.clientX / model.WIDTH ) * 2 - 1, - ( event.clientY / model.HEIGHT ) * 2 + 1, 0.5 );
-				projector.unprojectVector( vector, camera );
-				var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
-				var intersects = ray.intersectObjects( meshes );
+			// attach the render-supplied DOM element
+			$container.append(renderer.domElement);
 
-				if ( intersects.length > 0  && itemToCommandMap[intersects[0].object.id]) {
-					itemToCommandMap[intersects[0].object.id].call(undefined, event);
-				}
-			});
+			//This is an unfortunately complicated way of finding out if a mesh was clicked on
+			$container.on('mousedown', function( event ) {
+					event.preventDefault();
+					var vector = new THREE.Vector3( ( event.clientX / WIDTH ) * 2 - 1, - ( event.clientY / HEIGHT ) * 2 + 1, 0.5 );
+					projector.unprojectVector( vector, camera );
+					var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
+					var intersects = ray.intersectObjects( meshes );
 
-	//Public
-		return {
-			/**
-			 * Initialize the View
-			 */
-			initialize:function(){
-				this.createCubes();
-				this.createLight();
+					if ( intersects.length > 0) {
+						//Here we dispatch an event for the cube that was clicked
+						//The Presenter can do whatever it wants with this.
+						this.emit("cubeClick",intersects[0].object.id);
+					}
+				}.bind(this));
 
-				this.update();
-			},
-			/**
-			 * Add a command to be executed when click happens.
-			 * This Function now takes a Function... which is called when clicked
-			 */
-			setClickCommand:function(model, command){
-				itemToCommandMap[model.id] = command;
-			},
-			createCubes:function(){
-				var numOfCubes = model.CUBES.length;
-				while(numOfCubes--){
-					var cubeModel = model.CUBES[numOfCubes];
-					var boundCube = new View.Component.BoundCube(cubeModel);
-					//This is the 'active' part!
-					//Whenever a model changes, we render!
-					cubeModel.on('update', this.render);
-					cubes.push(boundCube);
-					meshes.push(boundCube.mesh);
-					scene.add(boundCube.mesh);
-				}
-			},
-			createLight:function(){
-				// create a point light
-				pointLight = new THREE.PointLight( 0xFFFFFF );
-				// add to the scene
-				scene.add(pointLight);
-			},
-			update:function(){
-				this.updateCamera();
-				this.updateLight();
-			},
-			updateCamera:function(){
-				// set the camera position
-				camera.position.x = model.CAMERA.x;
-				camera.position.y = model.CAMERA.y;
-				camera.position.z = model.CAMERA.z;
-				// look where we're supposed to
-				camera.lookAt(new THREE.Vector3(
-					model.FOCUS.x,
-					model.FOCUS.y,
-					model.FOCUS.z
-					));
-			},
-			updateLight:function(){
-				// set its position
-				pointLight.position.x = model.LIGHT.x;
-				pointLight.position.y = model.LIGHT.y;
-				pointLight.position.z = model.LIGHT.z;
-			},
-			render:function(){
-				// draw!
-				renderer.render(scene, camera);
-			}
+		};
+		/**
+		 * Creates an individual cube
+		 */
+		this.createCube = function(/*CubeModel*/ cubeModel){
+			var boundCube = new View.Component.BoundCube(cubeModel);
+			//This is the 'active' part!
+			//Whenever a model changes, we render!
+			cubeModel.on('update', this.render);
+			cubes.push(boundCube);
+			meshes.push(boundCube.mesh);
+			scene.add(boundCube.mesh);
+
 		};
 
+	//Public
+		this.updateCamera = function(cameraModel, focusModel){
+				// set the camera position
+				camera.position.x = cameraModel.x;
+				camera.position.y = cameraModel.y;
+				camera.position.z = cameraModel.z;
+				// look where we're supposed to
+				camera.lookAt(new THREE.Vector3(
+					focusModel.x,
+					focusModel.y,
+					focusModel.z
+					));
+			};
+		this.updateLight = function(lightModel){
+				// set its position
+				pointLight.position.x = lightModel.x;
+				pointLight.position.y = lightModel.y;
+				pointLight.position.z = lightModel.z;
+			};
+		this.render = function(){
+				// draw!
+				renderer.render(scene, camera);
+			};
+
+
+		EventEmitter.apply(this);
 	};
+	View.Scene3dView.prototype = EventEmitter.extend();
 
 })(MVPresenter);
 
