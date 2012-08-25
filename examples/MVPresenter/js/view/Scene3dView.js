@@ -4,6 +4,7 @@
 	var View 		= scope.View;
 
 	//Our view is now a Passive View.
+	//Because it's passive, it has many more public methods
 	View.Scene3dView = function(){
 	//Private 
 
@@ -20,7 +21,7 @@
 		// - assume we've got jQuery to hand
 		var $container = $('#container');
 
-
+	//Public
 		this.initialize = function(WIDTH, HEIGHT, VIEW_ANGLE, ASPECT, NEAR, FAR){
 			// create a WebGL renderer, camera
 			// and a scene
@@ -32,8 +33,7 @@
 											VIEW_ANGLE,
 			                                ASPECT,
 			                                NEAR,
-			                                FAR
-			);
+			                                FAR  );
 			scene.add(camera);
 			projector = new THREE.Projector();
 
@@ -75,7 +75,6 @@
 
 		};
 
-	//Public
 		this.updateCamera = function(cameraModel, focusModel){
 				// set the camera position
 				camera.position.x = cameraModel.x;
