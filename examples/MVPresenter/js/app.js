@@ -7,7 +7,7 @@
 	 * The App is basically just a factory that creates the pieces
 	 * and hooks them together.
 	 */
-	scope.MVCActiveApp = function(){
+	scope.MVPresenterApp = function(){
 	//Private 
 		var mainModel;
 		var mainView;
@@ -31,8 +31,8 @@
 
 		//Technically, these are no longer 'render' loops... they just update the model
 		//We let the views determine if they need to render or not.
-		renderCommand = new Controller.RenderViewOnce(cubeRotaters);
-		//renderCommand = new Controller.RenderViewLoop(cubeRotaters);
+		//renderCommand = new Controller.RenderViewOnce(cubeRotaters);
+		renderCommand = new Controller.RenderViewLoop(cubeRotaters);
 
 	//Public
 		return {
@@ -45,7 +45,7 @@
 
 	};
 
-})(MVCActive);
+})(MVPresenter);
 
 
 
@@ -56,7 +56,7 @@
 	var Model 		= scope.Model;
 	var View 		= scope.View;
 
-	scope.app = new scope.MVCActiveApp();
+	scope.app = new scope.MVPresenterApp();
 	scope.app.initialize();
 
-})(MVCActive);
+})(MVPresenter);

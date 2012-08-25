@@ -96,6 +96,6 @@
 
 	};
 
-})(MVCActive);
+})(MVPresenter);
 
 
