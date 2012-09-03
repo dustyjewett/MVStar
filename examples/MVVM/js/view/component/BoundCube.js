@@ -42,6 +42,6 @@
 
 	};
 
-})(MVCActive);
+})(MVVM);
 
 

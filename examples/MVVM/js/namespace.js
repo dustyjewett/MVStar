@@ -1,5 +1,5 @@
 "use strict";
-var MVCActive = MVCActive || {
+var MVVM = MVVM || {
 	/** Sub Namespaces **/
 	Application:{},
 	Controller:{},

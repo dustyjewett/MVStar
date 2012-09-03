@@ -29,6 +29,6 @@
 	};
 	Model.CubeModel.prototype = EventEmitter.extend();
 
-})(MVCActive);
+})(MVVM);
 
 

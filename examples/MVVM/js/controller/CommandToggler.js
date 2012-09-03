@@ -13,6 +13,6 @@
 
 	};
 
-})(MVCActive);
+})(MVVM);
 
 
