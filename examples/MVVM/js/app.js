@@ -9,36 +9,30 @@
 	 */
 	scope.MVVMApp = function(){
 	//Private 
-		var mainModel;
+		var scene, cubes, lights, camera, focus;
 		var mainView;
-		var cubeRotaters = [];
-		var renderCommand;
+
+		//Poor-man's Dependency Injection
 
 		//Instantiate our Model(s)
-		mainModel = new Model.SceneModel();
+		scene = new Model.Scene();
+		cubes = new Model.Cubes();
+		lights = new Model.Lights();
+		camera = new Model.Camera();
+		focus = new Model.Focus();
+
+		//Instantiate our ViewModel
+		viewModel = new Model.SceneViewModel(scene, cubes, lights, camera, focus);
 
 		//Instantiate our View
-		mainView = new View.Scene3dView(mainModel);
+		mainView = new View.Scene3dView(viewModel);
 
-		//We loop through our items and add controllers for each
-		var cubeI = mainModel.CUBES.length;
-		while(cubeI--){
-			var cubeR = new Controller.CubeRotater(mainModel.CUBES[cubeI], "x");
-			cubeRotaters.push(cubeR);
-			var toggleR = new Controller.CommandToggler(cubeR);
-			mainView.setClickCommand(mainModel.CUBES[cubeI], toggleR);
-		}
-
-		//Technically, these are no longer 'render' loops... they just update the model
-		//We let the views determine if they need to render or not.
-		//renderCommand = new Controller.RenderViewOnce(cubeRotaters);
-		renderCommand = new Controller.RenderViewLoop(cubeRotaters);
+		
 
 	//Public
 		return {
 			initialize:function(){
 				mainView.initialize();
-				renderCommand.execute();
 				
 			}
 		};
