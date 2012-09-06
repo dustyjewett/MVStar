@@ -3,8 +3,14 @@
 	var Model 		= scope.Models;
 	var View 		= scope.View;
 
-	//Our view is now a Passive View.
-	//Because it's passive, it has many more public methods
+	/*
+	In MVP, our view is passive.  It has the bare amount of logic to create the UI 
+	and nothing more.  We've added more public methods to allow the Presenter to
+	be able to control the UI at a finer level.
+
+	Because there is so little logic in the view, very little needs to be tested, 
+	in comparison to the other patterns.
+	*/
 	View.Scene3dView = function(){
 	//Private 
 

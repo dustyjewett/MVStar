@@ -3,6 +3,12 @@
 	var Model 		= scope.Models;
 	var View 		= scope.View;
 
+	/*
+	In MVC, the View is the default landing place for logic.  The M and C are ways to abstract
+	out business logic and reusable code. 
+
+	This lends itself well to many smaller apps, one-offs and deadline-driven-development.
+	*/
 	View.Scene3dView = function(
 		theScene, theCubes, theLights, theCamera, theFocus, 
 		theView){
