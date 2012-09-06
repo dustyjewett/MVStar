@@ -9,18 +9,25 @@
 	 */
 	scope.MVPresenterApp = function(){
 	//Private 
-		var mainModel;
+		var scene, cubes, lights, camera, focus;
 		var mainView;
-		var renderCommand;
+
+		//Poor-man's Dependency Injection
 
 		//Instantiate our Model(s)
-		mainModel = new Model.SceneModel();
+		scene = new Model.Scene();
+		cubes = new Model.Cubes();
+		lights = new Model.Lights();
+		camera = new Model.Camera();
+		focus = new Model.Focus();
 
 		//Instantiate our View
 		mainView = new View.Scene3dView();
 
 		//Instantiate our Presenter
-		mainPresenter = new Controller.Scene3dPresenter(mainModel, mainView);
+		mainPresenter = new Controller.Scene3dPresenter(
+			scene, cubes, lights, camera, focus, 
+			mainView);
 
 
 	//Public

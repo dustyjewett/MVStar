@@ -3,6 +3,14 @@
 	var Model 		= scope.Models;
 	var View 		= scope.View;
 
+	/*
+	
+	Our View here has quite a bit of logic in it, as it relates to drawing the scene,
+	but the logic for responding to user events, and  how the data may be separated
+	into different models is all abstracted.  
+
+	*/
+
 	View.Scene3dView = function(viewModel){
 	//Private 
 		var viewModel = viewModel;

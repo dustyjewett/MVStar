@@ -9,34 +9,24 @@
 	 */
 	scope.MVCPassiveApp = function(){
 	//Private 
-		var mainModel;
+		var scene, cubes, lights, camera, focus;
 		var mainView;
-		var cubeRotaters = [];
-		var renderCommand;
-
+		
 		//Instantiate our Model(s)
-		mainModel = new Model.SceneModel();
+		scene = new Model.Scene();
+		cubes = new Model.Cubes();
+		lights = new Model.Lights();
+		camera = new Model.Camera();
+		focus = new Model.Focus();
 
 		//Instantiate our View
-		mainView = new View.Scene3dView(mainModel);
+		mainView = new View.Scene3dView(scene, cubes, lights, camera, focus);
 
-		//We loop through our items and add controllers for each
-		var cubeI = mainModel.CUBES.length;
-		while(cubeI--){
-			var cubeR = new Controller.CubeRotater(mainModel.CUBES[cubeI], "x");
-			cubeRotaters.push(cubeR);
-			var toggleR = new Controller.CommandToggler(cubeR);
-			mainView.setClickCommand(mainModel.CUBES[cubeI], toggleR);
-		}
-
-		renderCommand = new Controller.RenderViewOnce(cubeRotaters, mainView);
-		//renderCommand = new Controller.RenderViewLoop(cubeRotaters, mainView);
 
 	//Public
 		return {
 			initialize:function(){
 				mainView.initialize();
-				renderCommand.execute();
 				
 			}
 		};

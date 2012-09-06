@@ -1,12 +1,16 @@
 (function(scope){
 	"use strict";
 	var Controller 	= scope.Controller;
-	var Model 		= scope.Models;
-	var View 		= scope.View;
 
-	Controller.Scene3dPresenter = function(theModel, theView){
+	Controller.Scene3dPresenter = function(
+		theScene, theCubes, theLights, theCamera, theFocus, 
+		theView){
 	//Private 
-		var model = theModel;
+		var scene = theScene;
+		var cubes = theCubes;
+		var lights = theLights;
+		var camera = theCamera;
+		var focus = theFocus;
 		var view = theView;
 		var cubeModelMap = {};//Map
 		var cubeRotaters = [];//Array to loop through
@@ -23,18 +27,18 @@
 
 		//Initialize the View
 		view.initialize(
-			model.WIDTH,
-			model.HEIGHT,
-			model.VIEW_ANGLE,
-			model.ASPECT,
-			model.NEAR,
-			model.FAR
+			scene.WIDTH,
+			scene.HEIGHT,
+			scene.VIEW_ANGLE,
+			scene.ASPECT,
+			scene.NEAR,
+			scene.FAR
 			);
 
 		//Add each of the cubes
-		var numOfCubes = model.CUBES.length;
+		var numOfCubes = cubes.length;
 		while(numOfCubes--){
-			var cubeModel = model.CUBES[numOfCubes];
+			var cubeModel = cubes[numOfCubes];
 			view.createCube(cubeModel);
 			cubeModelMap[cubeModel.id] = cubeModel;
 
@@ -56,8 +60,8 @@
 
 	//Public
 		this.update = function(){
-			view.updateCamera(model.CAMERA, model.FOCUS);
-			view.updateLight(model.LIGHT);
+			view.updateCamera(camera, focus);
+			view.updateLight(lights[0]);
 		}
 
 		this.start = function(){
