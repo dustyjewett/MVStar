@@ -9,7 +9,7 @@
 		
 		var cubeMaterial = new THREE.MeshLambertMaterial(
 			{
-			    color: model.color
+			    color: parseInt(model.color, 16)
 			});
 
 		// set up the cube vars

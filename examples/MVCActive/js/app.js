@@ -10,24 +10,25 @@
 	scope.MVCActiveApp = function(){
 	//Private 
 		var scene, cubes, lights, camera, focus;
-		var mainView;
+		var mainView, statsView;
 
-		//Instantiate our Model(s)
+		//Instantiate our Models
 		scene = new Model.Scene();
 		cubes = new Model.Cubes();
 		lights = new Model.Lights();
 		camera = new Model.Camera();
 		focus = new Model.Focus();
 
-		//Instantiate our View
+		//Instantiate our Views
 		mainView = new View.Scene3dView(scene, cubes, lights, camera, focus);
-
+		statsView = new View.StatsView(cubes);
 		
 
 	//Public
 		return {
 			initialize:function(){
 				mainView.initialize();
+				statsView.initialize();
 			}
 		};
 
