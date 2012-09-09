@@ -61,13 +61,18 @@
 		while(cubeI--){
 			var cubeR = new Controller.CubeRotater(cubes[cubeI], "x");
 			cubeRotaters.push(cubeR);
-			var toggleR = new Controller.CommandToggler(cubeR);
+			var toggleR;
+			if(cubes[cubeI].label == "White"){
+				toggleR = new Controller.CommandAxisSwitcher(cubeR);
+			}else{
+				toggleR = new Controller.CommandToggler(cubeR);				
+			}
 			itemToCommandMap[cubes[cubeI].id] = toggleR;
 		}
 
-		//Technically, these are no longer 'render' loops... they just update the model
+		//Technically, this is no longer a 'render' loop... it just runs the commands
+		//That need to be run every frame
 		//We let the views determine if they need to render or not.
-		//renderCommand = new Controller.RenderViewOnce(cubeRotaters);
 		renderCommand = new Controller.RenderViewLoop(cubeRotaters);
 
 	//Public
