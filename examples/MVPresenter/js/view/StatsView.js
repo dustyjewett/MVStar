@@ -15,7 +15,6 @@
 	*/
 	View.StatsView = function(theCubes){
 	//Private 
-		var cubes = theCubes;
 		var rows = [];
 
 		// get the DOM element to attach to
@@ -25,7 +24,10 @@
 		$stats.append($(tableTemplate));
 		var $table = $stats.find('table');
 
-		function createRows(){
+
+	//Public
+
+		this.createRows = function(cubes){
 			var numOfCubes = cubes.length;
 			while(numOfCubes--){
 				var cubeModel = cubes[numOfCubes];
@@ -34,15 +36,6 @@
 				$table.append(row.$el);
 				
 			}
-		};
-
-	//Public
-
-		/**
-		 * Initialize the View
-		 */
-		this.initialize = function(){
-			createRows();
 		};
 		
 

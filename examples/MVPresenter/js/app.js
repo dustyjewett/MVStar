@@ -28,14 +28,13 @@
 		//Instantiate our Presenter
 		mainPresenter = new Controller.Scene3dPresenter(
 			scene, cubes, lights, camera, focus, 
-			mainView);
+			mainView, statsView);
 
 
 	//Public
 		return {
 			initialize:function(){
 				mainPresenter.start();
-				statsView.initialize();
 			}
 		};
 

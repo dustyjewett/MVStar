@@ -4,7 +4,7 @@
 
 	Controller.Scene3dPresenter = function(
 		theScene, theCubes, theLights, theCamera, theFocus, 
-		theView){
+		theView, theStatsView){
 	//Private 
 		var scene = theScene;
 		var cubes = theCubes;
@@ -12,6 +12,7 @@
 		var camera = theCamera;
 		var focus = theFocus;
 		var view = theView;
+		var statsView = theStatsView;
 		var cubeModelMap = {};//Map
 		var cubeRotaters = [];//Array to loop through
 		var cubeTogglers = {};//Map
@@ -34,6 +35,8 @@
 			scene.NEAR,
 			scene.FAR
 			);
+
+		statsView.createRows(cubes);
 
 		//Add each of the cubes
 		var numOfCubes = cubes.length;
