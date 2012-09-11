@@ -34,6 +34,8 @@ The heart of MVP is the Presenter, which Fowler calls the Supervising Controller
 
 One of the downsides to the MVP pattern is the amount of files needed in strong/static-typed systems (though the strong testability of strong/static languages means that these two are often found together).  For instance, in Java, an Interface must be created for every UI component that the Controller interfaces with, so that the component can be mocked up during testing. Stubs are then often created from the Interfaces to allow for easy testing of common user flows.
 
+The example here shows how we can use our Presenter to reach down into a sectiondary view's sub-components and adjust colors and styles based on actions taken in the main view. This allows for some fantastic user experiences, though it can greatly increase the complexity of the code.  Though if testing exists, the complexity could be considered mitigated.
+
 
 
 ##MVVM - Model View ViewModel
