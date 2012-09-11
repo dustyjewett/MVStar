@@ -1,6 +1,8 @@
 (function(scope){
 	"use strict";
 	var Controller 	= scope.Controller;
+	var Model 		= scope.Models;
+	var View 		= scope.View;
 
 	Controller.Scene3dPresenter = function(
 		theScene, theCubes, theLights, theCamera, theFocus, 
@@ -36,24 +38,36 @@
 			scene.FAR
 			);
 
-		statsView.createRows(cubes);
+
 
 		//Add each of the cubes
 		var numOfCubes = cubes.length;
 		while(numOfCubes--){
 			var cubeModel = cubes[numOfCubes];
-			view.createCube(cubeModel);
 			cubeModelMap[cubeModel.id] = cubeModel;
+			view.createCube(cubeModel);
+			var row = new View.Component.StatsRow(cubeModel);
+			statsView.addRow(row);
 
 			var cubeR = new Controller.CubeRotater(cubeModel, "x");
+			row.setActiveCell("x");
 			cubeRotaters.push(cubeR);
 			var toggleR;
 			if(cubeModel.label == "White"){
-				toggleR = new Controller.CommandAxisSwitcher(cubeR);
+				toggleR = new Controller.CommandChain(
+						new Controller.CommandAxisSwitcher(cubeR),
+						new Controller.UpdateRowBasedOnRendering(cubeR, row)
+					);
 			}else{
-				toggleR = new Controller.CommandToggler(cubeR);				
+				toggleR = new Controller.CommandChain(
+						new Controller.CommandToggler(cubeR),
+						new Controller.UpdateRowBasedOnRendering(cubeR, row)		
+					);
 			}
 			cubeTogglers[cubeModel.id] = toggleR;
+
+
+
 		}
 
 

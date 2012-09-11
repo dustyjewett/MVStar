@@ -27,16 +27,11 @@
 
 	//Public
 
-		this.createRows = function(cubes){
-			var numOfCubes = cubes.length;
-			while(numOfCubes--){
-				var cubeModel = cubes[numOfCubes];
-				var row = new View.Component.StatsRow(cubeModel);
-				rows.push(row);
-				$table.append(row.$el);
-				
-			}
-		};
+		this.addRow = function(row){
+			rows.push(row);
+			$table.append(row.$el);
+
+		}
 		
 
 	};
@@ -59,6 +54,17 @@
 		$el.append(cells.z.$el);
 
 	//Public
+		this.setEnabled = function(){
+			$rowLabel.removeClass("css3-blink");
+		}
+		this.setDisabled = function(){
+			$rowLabel.addClass("css3-blink");
+		}
+		this.setActiveCell = function(cell){
+			cells.x.$el.toggleClass("inactiveCell", cell != "x");
+			cells.y.$el.toggleClass("inactiveCell", cell != "y");
+			cells.z.$el.toggleClass("inactiveCell", cell != "z");
+		}
 		this.$el = $el;
 	}
 
