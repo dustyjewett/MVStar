@@ -23,6 +23,7 @@
 
 		//Instantiate our View
 		mainView = new View.Scene3dView();
+		statsView = new View.StatsView(cubes);
 
 		//Instantiate our Presenter
 		mainPresenter = new Controller.Scene3dPresenter(
@@ -34,7 +35,7 @@
 		return {
 			initialize:function(){
 				mainPresenter.start();
-				
+				statsView.initialize();
 			}
 		};
 

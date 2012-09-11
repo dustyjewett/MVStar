@@ -44,7 +44,12 @@
 
 			var cubeR = new Controller.CubeRotater(cubeModel, "x");
 			cubeRotaters.push(cubeR);
-			var toggleR = new Controller.CommandToggler(cubeR);
+			var toggleR;
+			if(cubeModel.label == "White"){
+				toggleR = new Controller.CommandAxisSwitcher(cubeR);
+			}else{
+				toggleR = new Controller.CommandToggler(cubeR);				
+			}
 			cubeTogglers[cubeModel.id] = toggleR;
 		}
 

@@ -6,15 +6,23 @@
 	var Controller 	= scope.Controller;
 
 	Controller.CubeRotater = function(model, axis){
+		var _model = model;
+		var _axis = axis;
 		//Public
 		return {
 			enabled:true,
 			execute:function(){
 				if(this.enabled){
-					var r = model.getRotation();
-					r[axis] += 0.01;
-					model.setRotation(r);
+					var r = _model.getRotation();
+					r[_axis] += 0.01;
+					_model.setRotation(r);
 				}
+			},
+			setAxis:function(newAxis){
+				_axis = newAxis;
+			},
+			getAxis:function(){
+				return _axis;
 			}
 		};
 	};

@@ -7,13 +7,31 @@
 			body {
 				background: #000033;
 			}
+			#stats{
+				position:absolute;
+				top:0;
+				right:0;
+				width:150px;
+				height:200px;
+				margin:10px;
+				padding:5px;
+				border:double 1px black;
+				border-radius: 5px;
+				background: #181818;
+				color:white;
+				font-family: monospace;
+				font-size: 10px;
+			}
+
 		</style>
 	</head>
 	<body>
 
 		<div id="container">
 
-
+		</div>
+		
+		<div id="stats">
 		</div>
 
 	</body>
@@ -42,6 +60,7 @@
 	<!-- Controllers seconds -->
 	<script src="js/controller/CubeRotater.js"></script>
 	<script src="js/controller/CommandToggler.js"></script>
+	<script src="js/controller/CommandAxisSwitcher.js"></script>
 	<script src="js/controller/RenderViewOnce.js"></script>
 	<script src="js/controller/RenderViewLoop.js"></script>
 	<script src="js/controller/Scene3dPresenter.js"></script>
@@ -49,6 +68,7 @@
 	<!-- Third, Views -->
 	<script src="js/view/component/BoundCube.js"></script>
 	<script src="js/view/Scene3dView.js"></script>
+	<script src="js/view/StatsView.js"></script>
 
 	<!-- Finally, the app that starts everything off -->
 	<script src="js/app.js"></script>
