@@ -1,14 +1,16 @@
 (function(scope){
 	var Model 		= scope.Model;
 
-	Model.CubeModel = function(position, color, rotation){
+	Model.CubeModel = function(label, position, color, rotation){
 		var _id = Model.generateGUID();
+		var _label = label;
 		var _position = position;
 		var _color = color || 0xCC0000;
 		var _rotation = rotation || {x:0,y:0,z:0};
 
 		//Public
 		this.id = _id;
+		this.label = _label;
 		this.setPosition = function(p){
 				_position = p;
 				this.emit('update');

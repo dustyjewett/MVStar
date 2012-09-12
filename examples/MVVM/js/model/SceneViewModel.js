@@ -42,7 +42,12 @@
 		while(cubeI--){
 			var cubeR = new Controller.CubeRotater(cubes[cubeI], "x");
 			cubeRotaters.push(cubeR);
-			var toggleR = new Controller.CommandToggler(cubeR);
+			var toggleR;
+			if(cubes[cubeI].label == "White"){
+				toggleR = new Controller.CommandAxisSwitcher(cubeR);
+			}else{
+				toggleR = new Controller.CommandToggler(cubeR);				
+			}
 			itemToCommandMap[cubes[cubeI].id] = toggleR;
 		}
 
