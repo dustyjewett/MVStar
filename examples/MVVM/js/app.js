@@ -26,7 +26,7 @@
 
 		//Instantiate our View
 		mainView = new View.Scene3dView(viewModel);
-		statsView = new View.StatsView(cubes);
+		statsView = new View.StatsView(viewModel);
 		
 
 	//Public

@@ -5,24 +5,16 @@
 (function(scope){
 	var Controller 	= scope.Controller;
 
-	Controller.CubeRotater = function(model, axis){
-		var _model = model;
+	Controller.CubeRotater = function(UiModel, axis){
+		var _model = UiModel;
 		var _axis = axis;
 		//Public
 		return {
-			enabled:true,
 			execute:function(){
-				if(this.enabled){
-					var r = _model.getRotation();
-					r[_axis] += 0.01;
-					_model.setRotation(r);
-				}
+				_model.incrementActiveRotation(0.01);
 			},
-			setAxis:function(newAxis){
-				_axis = newAxis;
-			},
-			getAxis:function(){
-				return _axis;
+			toggleEnabled:function(){
+				_model.toggleRotationEnabled();
 			}
 		};
 	};

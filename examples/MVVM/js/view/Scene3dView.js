@@ -9,6 +9,8 @@
 	but the logic for responding to user events, and  how the data may be separated
 	into different models is all abstracted.  
 
+	The 'big deal' here is that there's only interface into the rest of the app... 
+	whether it's acquiring data or responding to user input
 	*/
 
 	View.Scene3dView = function(viewModel){

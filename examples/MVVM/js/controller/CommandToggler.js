@@ -6,7 +6,7 @@
 		//Public
 		return {
 			execute:function(){
-				theCommand.enabled = !theCommand.enabled;
+				theCommand.toggleEnabled()
 			}
 
 		};

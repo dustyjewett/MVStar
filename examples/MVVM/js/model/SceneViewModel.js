@@ -11,7 +11,14 @@
 	can happen in the View itself.
 	Generally speaking, MVVM is somewhere between MVC and MVP
 	Whereas MVP requires as little logic in the view as possible
-	and MVC defaults to putting logic in the view
+	and MVC defaults to putting logic in the view.
+
+	MVVM distributes 'logic' throughout all of the pieces, but 
+	'Business Logic' is kept out of the View.  
+
+	In this example, the Commands are rather pointless, but 
+	they become more important when dealing with synchronizing
+	views and async server communication.
 
 	*/
 
@@ -33,6 +40,7 @@
 		this.FAR = sceneModel.FAR;
 
 		this.CUBES = cubes;
+		this.CUBES_UI = [];
 		this.CAMERA = camera;
 		this.FOCUS = focus;
 		this.LIGHT = lights[0];
@@ -40,13 +48,16 @@
 		//We loop through our items and add controllers for each
 		var cubeI = cubes.length;
 		while(cubeI--){
-			var cubeR = new Controller.CubeRotater(cubes[cubeI], "x");
+			var cubeUIModel = new Model.CubeViewModel(cubes[cubeI]);
+			this.CUBES_UI.push(cubeUIModel);
+
+			var cubeR = new Controller.CubeRotater(cubeUIModel, "x");
 			cubeRotaters.push(cubeR);
 			var toggleR;
 			if(cubes[cubeI].label == "White"){
-				toggleR = new Controller.CommandAxisSwitcher(cubeR);
+				toggleR = new Controller.CommandAxisSwitcher(cubeUIModel);
 			}else{
-				toggleR = new Controller.CommandToggler(cubeR);				
+				toggleR = new Controller.CommandToggler(cubeR);
 			}
 			itemToCommandMap[cubes[cubeI].id] = toggleR;
 		}

@@ -23,6 +23,24 @@
 				font-family: monospace;
 				font-size: 10px;
 			}
+
+			@-webkit-keyframes blinker {  
+				from { opacity: 1.0; }
+				to { opacity: 0.0; }
+			}
+			.css3-blink {
+				-webkit-animation-name: blinker;  
+				-webkit-animation-iteration-count: infinite;  
+				-webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+				-webkit-animation-duration: 1s; 
+			}
+			.inactiveCell {
+				color:#AAAAAA;
+			}
+
+			#stats td{
+				min-width:20px;
+			}
 		</style>
 	</head>
 	<body>
@@ -59,6 +77,7 @@
 
 	<!-- ViewModel -->
 	<script src="js/model/SceneViewModel.js"></script>
+	<script src="js/model/CubeViewModel.js"></script>
 
 	<!-- Controllers seconds -->
 	<script src="js/controller/CubeRotater.js"></script>
