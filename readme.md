@@ -40,6 +40,17 @@ The example here shows how we can use our Presenter to reach down into a section
 
 ##MVVM - Model View ViewModel
 (Or, as I learned, Model View Presentation Model)
+Model View ViewModel has been slowly evolving since it first appeared as the "Application Model" alternative to MVC. Microsoft has embraced the pattern throughout it's tech stack, and really pushed it amongst it's Silverlight and WPF developers. 
+
+The Main goal of the MVVM pattern is to give your UI a Facade that makes accessing and manipulating your model as simple as possible.  Often a little bit of Adapter and Decorator patterns is thrown in for good measure.  
+
+In the provided example, the SceneViewModel aggregates the models together, creates sub-view-models, and maps user-input to the proper command.
+
+The CubeViewModel acts as an adapter and decorator, giving the Commands and StatsView a much more simple interface, and providing a place to store and manipulate UI-specific state.
+
+MVVM is a close second in testability... lagging behind in it's ability to run easy integration tests without a UI.  On the other hand, the logic is spread out through the domain objects more evenly, rather than being compressed into a Presenter.  This can make it easier to grok code.
+
+In my experience, MVVM tends to be naturally more [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)), but that may be a simple byproduct of who I tend to see using MVVM. (and my own bias towards it :-D)
 
 
 
